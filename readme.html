@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>charlene's desktop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #309AE1 0%, #BDE0FE 76%, #FEFAE0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .floating-dice {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.2));
+        }
+
+        .floating-dice:hover {
+            transform: scale(1.15) rotate(20deg);
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(-2deg); }
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* README Tab */
+        .readme-tab {
+            background: rgba(255, 255, 255, 0.95);
+            webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            width: 100%;
+            height: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        /* Thin Header */
+        .readme-header {
+            background: #FEFAE0;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(68, 68, 68, 0.1);
+            flex-shrink: 0;
+        }
+
+        .readme-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            color: #444444;
+            font-size: 1.1rem;
+        }
+
+        .readme-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #444444;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .readme-close:hover {
+            background: rgba(68, 68, 68, 0.1);
+        }
+
+        /* Content Area - Blank for now */
+        .readme-body {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(189, 224, 254, 0.2) 0%, rgba(255, 255, 255, 0.8) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+        }
+
+        /* Content when not blank */
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            background: #BDE0FE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .readme-description {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .learn-more-btn {
+            background: none;
+            border: none;
+            color: #444444;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: all 0.3s ease;
+        }
+
+        .learn-more-btn:hover {
+            color: #222222;
+            transform: translateY(-2px);
+        }
+
+        /* Icons positioned BELOW the tab */
+        .taskbar-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .taskbar-icon {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        /* Only readme icon highlighted with white shadow */
+        .taskbar-icon.active {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .taskbar-icon:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .copyright {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Klee One', cursive;
+            font-weight: 400;
+            font-size: 1rem;
+            color: #444444;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                width: 95%;
+            }
+
+            .readme-tab {
+                height: 400px;
+            }
+
+            .readme-header {
+                padding: 10px 20px;
+            }
+
+            .readme-body {
+                padding: 40px 30px;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 30px;
+            }
+
+            .avatar-img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .readme-description {
+                font-size: 1.1rem;
+                margin-bottom: 25px;
+            }
+
+            .taskbar-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .floating-dice {
+                width: 60px;
+                height: 60px;
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Hide content initially - show blank version */
+        .content {
+            display: none;
+        }
+
+        .content.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Dice -->
+    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dice-sXVMy8jue8Jg9A5mlWvIinzVoOq17X.png" alt="dice" class="floating-dice" id="diceBtn">
+
+    <div class="main-container">
+        <!-- README Tab -->
+        <div class="readme-tab">
+            <!-- Thin Header -->
+            <div class="readme-header">
+                <span class="readme-title">readme</span>
+                <button class="readme-close" id="readmeClose">[X]</button>
+            </div>
+            
+            <!-- Content Area - Initially Blank -->
+            <div class="readme-body">
+                <div class="content" id="readmeContent">
+                    <div class="profile-avatar">
+                        <svg class="avatar-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Avatar illustration -->
+                            <circle cx="50" cy="50" r="50" fill="#E8F4FD"/>
+                            <!-- Face -->
+                            <circle cx="50" cy="45" r="25" fill="#FFE4C4"/>
+                            <!-- Hair -->
+                            <path d="M25 35 Q50 15 75 35 Q75 25 50 20 Q25 25 25 35" fill="#2C1810"/>
+                            <!-- Eyes -->
+                            <circle cx="42" cy="40" r="2" fill="#000"/>
+                            <circle cx="58" cy="40" r="2" fill="#000"/>
+                            <!-- Smile -->
+                            <path d="M40 50 Q50 55 60 50" stroke="#000" stroke-width="1.5" fill="none"/>
+                            <!-- Body -->
+                            <rect x="35" y="65" width="30" height="25" rx="5" fill="#8B4513"/>
+                        </svg>
+                    </div>
+                    <p class="readme-description">
+                        Feel free to click around, leave a friendly ping and explore what I've made so far.
+                    </p>
+                    <button class="learn-more-btn">Learn More...</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Icons positioned BELOW the tab -->
+        <div class="taskbar-icons">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/readme-eXQDRWbS9pvXZgbRlyu8EHVHB0VFVy.png" alt="readme" class="taskbar-icon active" data-page="readme">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/builds-XBuUmYnF6lo9yQmmRtAgl0KURbuVUj.png" alt="builds" class="taskbar-icon" data-page="builds">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nav-swhjJCGhb5yfY0bgAO5h58h9pEOAhA.png" alt="network" class="taskbar-icon" data-page="network">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ping-7TandUToe1O2vsVJ2e5Ps2mjcNbWH9.png" alt="ping" class="taskbar-icon" data-page="ping">
+        </div>
+
+        <div class="copyright">© 2025 Charlene Nepomuceno</div>
+    </div>
+
+    <script>
+        function playSound(type) {
+            console.log('Playing ' + type + ' sound');
+        }
+
+        // Show content after 2 seconds (remove this to keep blank)
+        setTimeout(() => {
+            document.getElementById('readmeContent').classList.add('show');
+        }, 2000);
+
+        // Close README tab
+        document.getElementById('readmeClose').addEventListener('click', function() {
+            playSound('close');
+            window.location.href = 'index.html';
+        });
+
+        // Taskbar icon click handlers
+        document.querySelectorAll('.taskbar-icon').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.dataset.page;
+                playSound('click');
+                
+                // Remove active class from all icons
+                document.querySelectorAll('.taskbar-icon').forEach(icon => {
+                    icon.classList.remove('active');
+                });
+                
+                // Add active class to clicked icon
+                this.classList.add('active');
+                
+                if (page === 'readme') {
+                    console.log('Already on README');
+                } else {
+                    console.log('Navigate to ' + page);
+                    // window.location.href = page + '.html';
+                }
+            });
+
+            item.addEventListener('mouseenter', function() {
+                playSound('hover');
+            });
+        });
+
+        // Dice functionality
+        document.getElementById('diceBtn').addEventListener('click', function() {
+            playSound('dice');
+            console.log('Dice clicked on README page');
+        });
+    </script>
+</body>
+</html>

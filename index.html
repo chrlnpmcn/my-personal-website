@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>charlene's desktop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #309AE1 0%, #BDE0FE 76%, #FEFAE0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.25);
+            webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 80px 100px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            width: 52%;
+        }
+
+        .greeting-line {
+            font-size: 5rem;
+            font-weight: 100;
+            color: #444444;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+
+        .greeting-line .name-part {
+            font-weight: 400;
+            color: #FEFAE0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 200;
+            color: #444444;
+            margin-bottom: 80px;
+            letter-spacing: 5.2px;
+            min-height: 2.2rem;
+        }
+
+        .typewriter {
+            border-right: 2px solid #444444;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #444444; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .icons-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .icon-item:hover {
+            transform: translateY(-15px);
+        }
+
+        .icon-item img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+        }
+
+        .icon-item:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.25));
+        }
+
+        .icon-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #444444;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .icon-item:hover .icon-label {
+            transform: translateY(-5px);
+            color: #333333;
+        }
+
+        .copyright {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Klee One', cursive;
+            font-weight: 400;
+            font-size: 1rem;
+            color: #444444;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .floating-dice {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.2));
+        }
+
+        .floating-dice:hover {
+            transform: scale(1.15) rotate(20deg);
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(-2deg); }
+        }
+
+        .dice-popup {
+            position: fixed;
+            top: 90px;
+            right: 90px;
+            background: #FEFAE0;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-bottom: none;
+            z-index: 1000;
+            width: 400px;
+            display: none;
+            animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dice-popup.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .dice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            background: #FEFAE0;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .dice-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            color: #444444;
+            font-size: 1.1rem;
+        }
+
+        .dice-close {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #444444;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .dice-close:hover {
+            background: rgba(68, 68, 68, 0.1);
+            transform: scale(1.1);
+        }
+
+        .dice-content {
+            padding: 25px;
+            background: rgba(200, 234, 255, 0.95);
+            webkit-backdrop-filter: blur(20px);
+            font-family: 'Klee One', cursive;
+            font-weight: 300;
+            color: #444444;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            border-radius: 0 0 15px 15px;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1 class="greeting-line">hi! <span class="name-part">I'm Charlene</span></h1>
+        <p class="welcome-text typewriter" id="typewriter"></p>
+        
+        <div class="icons-container">
+            <div class="icon-item" data-page="readme">
+                <img src="icons/readme.png" alt="readme">
+                <span class="icon-label">readme</span>
+            </div>
+            <div class="icon-item" data-page="builds">
+                <img src="icons/builds.png" alt="builds">
+                <span class="icon-label">builds</span>
+            </div>
+            <div class="icon-item" data-page="network">
+                <img src="icons/network.png" alt="network">
+                <span class="icon-label">network</span>
+            </div>
+            <div class="icon-item" data-page="ping">
+                <img src="icons/ping.png" alt="ping">
+                <span class="icon-label">ping</span>
+            </div>
+        </div>
+    </div>
+
+    <img src="icons/dice.png" alt="dice" class="floating-dice" id="diceBtn">
+
+    <div class="dice-popup" id="dicePopup">
+        <div class="dice-header">
+            <span class="dice-title">dice</span>
+            <button class="dice-close" id="diceClose">[x]</button>
+        </div>
+        <div class="dice-content" id="diceContent">
+        </div>
+    </div>
+
+    <div class="copyright">© 2025 Charlene Nepomuceno</div>
+
+    <script>
+        // Typewriter effect
+        const text = "welcome to my tiny corner of the web";
+        const typewriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typewriterElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            } else {
+                setTimeout(() => {
+                    typewriterElement.classList.remove('typewriter');
+                }, 1000);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1500);
+        });
+
+        // Random quotes and memes
+        const randomContent = [
+            "I believe in learning by doing (and breaking things).",
+            "My favorite project is always the next one.",
+            "I once spent 1 hour tweaking padding... and still wasn't happy.",
+            "You don't need to know everything. You just need to keep learning.",
+            "Impostor syndrome means you're growing.",
+            "Debugging teaches you more than tutorials ever will.",
+            "currently: sketching a portfolio redesign that I'll probably redo again tomorrow.",
+            "listening to: Studio Ghibli lo-fi playlists while fixing bugs.",
+            "Favorite font combo: Outfit + Klee One (you're looking at it).",
+            "I love pastel desktops with lots of widgets. Form over function? Maybe.",
+            "Tabs I never close: Gmail, Figma, and a random blog post from 2019.",
+            "I love Easter eggs. Maybe there's one hiding here? 👀",
+            "Did you know? Every icon on this page has been clicked at least once... by me.",
+            "There's a hidden page. But you'll have to guess the path.",
+            "You're not lost... you're just exploring my digital brain.",
+            "Skill issue? More like still learning.",
+            "I write code, then I cry, then I debug. Repeat.",
+            "I don't make bugs. I create unexpected features.",
+            "If this site breaks, just pretend it's abstract art.",
+            "Currently broadcasting from: my bed.",
+            "Memory usage: 99% me overthinking.",
+            "You clicked the dice... now you owe me an ice cream.",
+            "Mood: 90% tired, 10% inspired.",
+            "Fun fact: I learned CSS by trial, error, and screaming.",
+            "This corner of the web is powered by vibes and anxiety.",
+            "Found a bug? It's a feature. Trust me.",
+            "Loading... my will to code today.",
+            "Life is just one long tutorial you can't skip."
+        ];
+
+        function playSound(type) {
+            console.log('Playing ' + type + ' sound');
+        }
+
+        // Get DOM elements
+        const diceBtn = document.getElementById('diceBtn');
+        const dicePopup = document.getElementById('dicePopup');
+        const diceClose = document.getElementById('diceClose');
+        const diceContent = document.getElementById('diceContent');
+
+        // Dice functionality
+        diceBtn.addEventListener('click', function() {
+            playSound('dice');
+            const randomIndex = Math.floor(Math.random() * randomContent.length);
+            diceContent.textContent = randomContent[randomIndex];
+            dicePopup.classList.add('show');
+        });
+
+        diceClose.addEventListener('click', function() {
+            playSound('close');
+            dicePopup.classList.remove('show');
+        });
+
+        // Icon click handlers
+        document.querySelectorAll('.icon-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.dataset.page;
+                playSound('click');
+                
+                if (page === 'readme') {
+                    window.location.href = 'readme.html';
+                } else {
+                    console.log('Navigate to ' + page);
+                }
+            });
+
+            item.addEventListener('mouseenter', function() {
+                playSound('hover');
+            });
+        });
+
+    </script>
+</body>
+</html>
