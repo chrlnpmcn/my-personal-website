@@ -28,7 +28,7 @@
 
         .main-container {
             background: rgba(255, 255, 255, 0.25);
-            border-radius: clamp(20px, 5vw, 40px);
+            border-radius: clamp(10px, 3vw, 40px);
             padding: clamp(40px, 8vw, 80px) clamp(30px, 8vw, 100px);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -40,7 +40,7 @@
         }
 
         .greeting-line {
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2rem, 5vw, 4.7rem);
             font-weight: 100;
             color: #444444;
             margin-bottom: 10px;
@@ -59,12 +59,12 @@
             font-weight: 200;
             color: #444444;
             margin-bottom: clamp(40px, 8vw, 80px);
-            letter-spacing: clamp(1px, 0.8vw, 5.2px);
+            letter-spacing: clamp(1px, 0.8vw, 4.3px);
             min-height: clamp(1.5rem, 4vw, 2.2rem);
         }
 
         .typewriter {
-            border-right: 2px solid #444444;
+            border-right: 1px solid #444444;
             animation: blink 1s infinite;
         }
 
@@ -443,9 +443,13 @@
                 playSound('click');
                 
                 if (page === 'readme') {
-                    window.location.href = 'readme.html';
-                } else {
-                    console.log('Navigate to ' + page);
+                    window.location.href = '#';
+                } if (page === 'builds') {
+                    window.location.href = '#';
+                } if (page === 'network') {
+                    window.location.href = '#';
+                } if (page === 'ping') {
+                    window.location.href = '#';
                 }
             });
 
